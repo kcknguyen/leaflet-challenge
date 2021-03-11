@@ -1,3 +1,7 @@
+config.py
+_pycache_
+ipynb_checkpoint
+
 # Compiled class file
 *.class
 
