@@ -1,4 +1,3 @@
-
 // Creating map object
 var myMap = L.map("mapid", {
   center: [39.8283, -98.5795],
@@ -21,7 +20,29 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   //console.log();)
   // Use this link to get the geojson data.
   var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
-  
+  d3.json(url, function(data) {
+    var earthquakes = L.geoJSON(data.features, {
+        onEachFeature : addPopup,
+        pointToLayer: addMarker
+      });
+    
+    // call function to create map
+      createMap(earthquakes);
+    
+    });
+    
+    function mapStyle(feature) {
+      return {
+        opacity: 1,
+        fillOpacity: 1,
+        fillColor: mapColor(feature.properties.mag),
+        color: "#000000",
+        radius: mapRadius(feature.properties.mag),
+        stroke: true,
+        weight: 0.5
+      };
+    }
+
   function Color(magnitude){
     // console.log(magnitude)
     if (magnitude > 5){
@@ -37,4 +58,4 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     } else {
         return 'lightgreen'
     }
-};
+}.addTo(myMap);
