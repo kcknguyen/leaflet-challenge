@@ -37,3 +37,20 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
       layer.bindPopup(pop);
       console.log(feature);}
     
+      ;
+    function addCircle(feature,latlng){
+      console.log(+feature.properties.mag)
+      console.log(+feature.geometry.coordinates[2])
+      return L.circleMarker(
+        latlng, {
+          radius: (+feature.properties.mag*3), //to do calulate
+          fillColor: Color(+feature.geometry.coordinates[2]), // to calulate
+          color: "#000",
+          weight: 1,
+          opacity: .2,
+          fillOpacity: 0.8,
+        }
+      );
+
+    };
+    
