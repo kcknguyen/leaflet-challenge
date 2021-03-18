@@ -26,7 +26,6 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
       createMap
     
     )
-
     function addPopup(feature,layer)
     {
       var pop = (
@@ -37,7 +36,8 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
       layer.bindPopup(pop);
       console.log(feature);}
     
-      ;
+    
+    ;
     function addCircle(feature,latlng){
       console.log(+feature.properties.mag)
       console.log(+feature.geometry.coordinates[2])
@@ -70,3 +70,24 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
         
         
     ).addTo(myMap);}
+    
+  
+    
+    
+
+  function Color(magnitude){
+    // console.log(magnitude)
+    if (magnitude > 5){
+        return 'red'
+    } else if (magnitude > 4){
+        return 'darkorange'
+    } else if (magnitude > 3){
+        return 'orange'
+    } else if (magnitude > 2){
+        return 'yellow'
+    } else if (magnitude > 1){
+        return 'darkgreen'
+    } else {
+        return 'lightgreen'
+    }
+  }
