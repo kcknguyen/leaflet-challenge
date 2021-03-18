@@ -26,5 +26,14 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
       createMap
     
     )
- 
-  
+
+    function addPopup(feature,layer)
+    {
+      var pop = (
+        "<div> location " + feature.properties.place + "</div>" +
+        "<div> mag " + feature.properties.mag + "</div>" +
+        "<div> height " + feature.geometry.coordinates[2] + "</div>"
+      );
+      layer.bindPopup(pop);
+      console.log(feature);}
+    
