@@ -54,3 +54,19 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
     };
     
+    function createMap(data){ 
+      //[lat,lng,height]
+      console.log(data.features[0].geometry.coordinates[0]);
+      console.log(data.features[0].geometry.coordinates[1]);
+      console.log(data.features[0].geometry.coordinates[2]);
+      console.log(data.features[0].properties.mag);
+
+      L.geoJson(data,{
+        onEachFeature : addPopup,
+        pointToLayer: addCircle
+        
+      }
+        
+        
+        
+    ).addTo(myMap);}
