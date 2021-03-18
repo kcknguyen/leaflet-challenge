@@ -19,29 +19,61 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
   // Use this link to get the geojson data.
   var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson";
-  d3.json(url, function(data) {
-    console.log(data);
-    var earthquakes = L.geoJSON(data.features, {
-        onEachFeature : addPopup,
-        pointToLayer: addMarker
-      });
+  d3.json(url, 
+   
     
     // call function to create map
-      createMap(earthquakes);
+      createMap
     
-    });
+    )
+    function addPopup(feature,layer)
+    {
+      var pop = (
+        "<div> location " + feature.properties.place + "</div>" +
+        "<div> mag " + feature.properties.mag + "</div>" +
+        "<div> height " + feature.geometry.coordinates[2] + "</div>"
+      );
+      layer.bindPopup(pop);
+      console.log(feature);}
     
-    function mapStyle(feature) {
-      return {
-        opacity: 1,
-        fillOpacity: 1,
-        fillColor: mapColor(feature.properties.mag),
-        color: "#000000",
-        radius: mapRadius(feature.properties.mag),
-        stroke: true,
-        weight: 0.5
-      };
-    }
+    
+    ;
+    function addCircle(feature,latlng){
+      console.log(+feature.properties.mag)
+      console.log(+feature.geometry.coordinates[2])
+      return L.circleMarker(
+        latlng, {
+          radius: (+feature.properties.mag*3), //to do calulate
+          fillColor: Color(+feature.geometry.coordinates[2]), // to calulate
+          color: "#000",
+          weight: 1,
+          opacity: .2,
+          fillOpacity: 0.8,
+        }
+      );
+
+    };
+    
+    function createMap(data){ 
+      //[lat,lng,height]
+      console.log(data.features[0].geometry.coordinates[0]);
+      console.log(data.features[0].geometry.coordinates[1]);
+      console.log(data.features[0].geometry.coordinates[2]);
+      console.log(data.features[0].properties.mag);
+
+      L.geoJson(data,{
+        onEachFeature : addPopup,
+        pointToLayer: addCircle
+        
+      }
+        
+        
+        
+    ).addTo(myMap);}
+    
+  
+    
+    
 
   function Color(magnitude){
     // console.log(magnitude)
